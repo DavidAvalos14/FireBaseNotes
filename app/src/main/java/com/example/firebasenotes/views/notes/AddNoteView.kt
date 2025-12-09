@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.firebasenotes.viewModels.NotesViewModel
@@ -49,7 +50,7 @@ fun AddNoteView(navController: NavController, notesVM: NotesViewModel) {
                 actions = {
                     IconButton(onClick = {
                         notesVM.saveNewNote(title, note){
-                            Toast.makeText(context, "Guardo", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Guardado", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         }
                     }) {
@@ -67,7 +68,7 @@ fun AddNoteView(navController: NavController, notesVM: NotesViewModel) {
         ) {
             OutlinedTextField(value = title,
                 onValueChange = { title = it },
-                label = { Text(text = "Titulo") },
+                label = { Text(text = "Titulo", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)
