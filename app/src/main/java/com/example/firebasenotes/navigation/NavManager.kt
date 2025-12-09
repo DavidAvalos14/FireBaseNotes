@@ -10,6 +10,7 @@ import com.example.firebasenotes.viewModels.LoginViewModel
 import com.example.firebasenotes.viewModels.NotesViewModel
 import com.example.firebasenotes.views.SplashScreen
 import com.example.firebasenotes.views.login.BlankView
+import com.example.firebasenotes.views.login.RecoverPasswordView
 import com.example.firebasenotes.views.notes.HomeView
 import com.example.firebasenotes.views.login.TabsView
 import com.example.firebasenotes.views.notes.AddNoteView
@@ -27,6 +28,9 @@ fun NavManager(loginVM: LoginViewModel, notesVM: NotesViewModel){
         }
         composable("Login"){
             TabsView(navController, loginVM)
+        }
+        composable("RecoverPassword"){
+            RecoverPasswordView(navController, loginVM)
         }
         composable("Home"){
             HomeView(navController, notesVM)
