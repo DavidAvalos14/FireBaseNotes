@@ -1,5 +1,6 @@
 package com.example.firebasenotes.views.login
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -28,69 +30,79 @@ import com.example.firebasenotes.viewModels.LoginViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginView(navController: NavController, loginVM: LoginViewModel) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
+        verticalArrangement = Arrangement.Center
     ) {
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
 
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(text = "Email") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        // --- Caja elegante ---
+        androidx.compose.material3.Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 30.dp, end = 30.dp)
-        )
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text(text = "Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 30.dp, end = 30.dp)
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Button(
-            onClick = {
-                loginVM.login(email, password) {
-                    navController.navigate("Home")
-                }
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 30.dp, end = 30.dp)
+                .fillMaxWidth(0.9f),
+            elevation = androidx.compose.material3.CardDefaults.cardElevation(
+                defaultElevation = 8.dp
+            )
         ) {
-            Text(text = "Entrar")
-        }
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-        if (loginVM.showAlert) {
-            Alert(title = "Alerta",
-                message = "Usuario y/o Contrasena Incorrectos",
-                confirmText = "Aceptar",
-                onConfirmClick = { loginVM.closeAlert() }) {
+                Text(
+                    text = "Iniciar Sesión",
+                    style = androidx.compose.material3.MaterialTheme.typography.headlineSmall
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text(text = "Email") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text(text = "Password") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    onClick = {
+                        loginVM.login(email, password) {
+                            navController.navigate("Home")
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Entrar",
+                        fontWeight = FontWeight.ExtraBold)
+                }
             }
         }
 
-
+        if (loginVM.showAlert) {
+            Alert(
+                title = "Alerta",
+                message = "Usuario y/o Contraseña Incorrectos",
+                confirmText = "Aceptar",
+                onConfirmClick = { loginVM.closeAlert() }
+            ) {}
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
