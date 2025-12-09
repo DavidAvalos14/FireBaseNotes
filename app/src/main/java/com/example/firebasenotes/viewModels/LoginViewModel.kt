@@ -71,7 +71,7 @@ class LoginViewModel: ViewModel() {
             FirebaseFirestore.getInstance().collection("Users")
                 .add(user)
                 .addOnSuccessListener {
-                    Log.d("GUARDO", "Guardo correctamente")
+                    Log.d("GUARDADO", "Guardado correctamente")
                 }.addOnFailureListener{
                     Log.d("ERROR AL GUARDAR", "ERROR al guardar en firestore")
                 }
